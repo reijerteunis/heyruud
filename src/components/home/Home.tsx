@@ -1,5 +1,6 @@
 import About from "./About";
 import Hero from "./Hero";
+import Skills from "./Skills";
 
 /**
  * Renders the home page with a hero section.
@@ -7,9 +8,10 @@ import Hero from "./Hero";
  */
 export default function Home(): React.ReactNode {
   return (
-    <>
+    <div className="flex flex-col items-start justify-start gap-20">
       <Hero />
       <About />
-    </>
+      <Skills />
+    </div>
   );
 }
