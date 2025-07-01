@@ -33,9 +33,15 @@ export const buttonVariants = cva(
           `,
         ],
       },
+      size: {
+        md: ["px-4 py-2 text-base"],
+        lg: ["px-5 py-3 text-lg"],
+        xl: ["px-6 py-4 text-xl"],
+      },
     },
     defaultVariants: {
       variant: "default",
+      size: "xl",
     },
   },
 );

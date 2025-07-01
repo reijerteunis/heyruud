@@ -9,4 +9,6 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   trailingIcon?: React.ReactNode;
   ariaLabel?: string;
   external?: boolean;
+  className?: string;
+  // size?: "md" | "lg" | "xl"; // Available via VariantProps
 }

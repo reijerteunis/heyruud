@@ -10,13 +10,15 @@ const Button = ({
   trailingIcon,
   ariaLabel,
   external,
+  className,
+  size,
 }: ButtonProps) => {
   const isExternal = external || href.startsWith("http");
 
   return (
     <Link
       href={href}
-      className={buttonVariants()}
+      className={buttonVariants({className, size})}
       aria-label={ariaLabel}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}

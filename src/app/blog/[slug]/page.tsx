@@ -1,0 +1,83 @@
+import fs from "fs";
+import path from "path";
+
+import matter from "gray-matter";
+import Image from "next/image";
+import {MDXRemote} from "next-mdx-remote/rsc";
+
+import {mdxComponents} from "@/components/blog/MDX/mdxComponents";
+
+import type {Metadata} from "next";
+
+interface BlogPageProps {
+  params: {slug: string};
+}
+
+/**
+ * Generates metadata (title, description) for the blog post page based on the MDX frontmatter.
+ * @param {BlogPageProps} props - The route parameters containing the slug.
+ * @returns {Promise<Metadata>} The metadata object for the page.
+ */
+export async function generateMetadata({
+  params,
+}: BlogPageProps): Promise<Metadata> {
+  const filePath = path.join(
+    process.cwd(),
+    "src/app/blog/[slug]",
+    `${params.slug}.mdx`,
+  );
+  const source = fs.readFileSync(filePath, "utf8");
+  const {data} = matter(source);
+  return {
+    title: data.title || params.slug,
+    description: data.description || "",
+  };
+}
+
+/**
+ * Dynamic blog post page. Loads and renders the MDX file matching the slug parameter.
+ * @param {BlogPageProps} props - The route parameters containing the slug.
+ * @returns {Promise<import("react").JSX.Element>} The rendered blog post page or a not found message.
+ */
+export default async function BlogPage({params}: BlogPageProps) {
+  const filePath = path.join(
+    process.cwd(),
+    "src/app/blog/[slug]",
+    `${params.slug}.mdx`,
+  );
+  if (!fs.existsSync(filePath)) {
+    return <div>Post not found.</div>;
+  }
+  const source = fs.readFileSync(filePath, "utf8");
+  const {content, data} = matter(source);
+  return (
+    <article className="mx-auto max-w-3xl py-12">
+      {data.image && (
+        <Image
+          src={data.image}
+          alt={data.title || params.slug}
+          width={1000}
+          height={1000}
+          className="mb-8 rounded"
+        />
+      )}
+      <div
+        className={`
+          mb-6 flex flex-row items-center gap-4 text-sm text-black-200
+        `}
+      >
+        {data.author && <span>By {data.author}</span>}
+        {data.date && (
+          <span>
+            {new Date(data.date).toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </span>
+        )}
+      </div>
+      <MDXRemote source={content} components={mdxComponents} />
+    </article>
+  );
+}
