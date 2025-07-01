@@ -1,3 +1,5 @@
+import Home from "@/components/home";
+
 export const metadata = {
   title: "Hey Ruud – CTO. Builder. Product-led Tech Leader.",
   description:
@@ -44,15 +46,6 @@ export const metadata = {
  * Renders the home page with a headline and a tagline.
  * @returns {import('react').ReactElement} The main content of the home page.
  */
-export default function Home() {
-  return (
-    <>
-      <h1 className="font-display text-[4.5rem] uppercase">
-        CTO, Builder, Product-led Tech Leader
-      </h1>
-      <p className="font-display text-[2.5rem] uppercase">
-        Ready for what's next.
-      </p>
-    </>
-  );
+export default function HomePage() {
+  return <Home />;
 }

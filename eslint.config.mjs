@@ -29,7 +29,7 @@ const eslintConfig = [
     settings: {
       "better-tailwindcss": {
         entryPoint: "src/app/globals.css",
-        allowedCustomClasses: ["font-display"],
+        allowedCustomClasses: ["font-display", "dark"],
       },
     },
     rules: {

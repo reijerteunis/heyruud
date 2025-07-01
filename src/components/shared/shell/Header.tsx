@@ -16,18 +16,13 @@ export default function Header() {
     <header
       itemScope
       itemType="https://schema.org/Person"
-      className={`
-        inline-flex w-full items-center justify-start gap-4 rounded-2xl
-        bg-zinc-950 py-3 pr-3 pl-4
-        shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] outline-1
-        outline-zinc-700
-      `}
+      className={`inline-flex w-full items-center justify-start gap-4 py-3`}
     >
       <Link href="/" itemProp="url">
         <Image
           src="/logo.svg"
           alt="Hey Ruud homepage"
-          width={108}
+          width={135}
           height={30}
           itemProp="image"
         />
