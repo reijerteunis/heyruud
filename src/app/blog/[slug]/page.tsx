@@ -22,12 +22,17 @@ export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const {slug} = await params;
-  const filePath = path.join(
-    process.cwd(),
-    "src/app/blog/[slug]",
-    `${slug}.mdx`,
-  );
-  const source = fs.readFileSync(filePath, "utf8");
+  const filePath = path.join(process.cwd(), "src/content/blog", `${slug}.mdx`);
+  let source;
+  try {
+    source = fs.readFileSync(filePath, "utf8");
+  } catch (err) {
+    console.error("Error reading blog post:", err);
+    return {
+      title: slug,
+      description: "",
+    };
+  }
   const {data} = matter(source);
   return {
     title: data.title || slug,
@@ -42,15 +47,17 @@ export async function generateMetadata({
  */
 export default async function BlogPage({params}: BlogPageProps) {
   const {slug} = await params;
-  const filePath = path.join(
-    process.cwd(),
-    "src/app/blog/[slug]",
-    `${slug}.mdx`,
-  );
+  const filePath = path.join(process.cwd(), "src/content/blog", `${slug}.mdx`);
   if (!fs.existsSync(filePath)) {
     return <div>Post not found.</div>;
   }
-  const source = fs.readFileSync(filePath, "utf8");
+  let source;
+  try {
+    source = fs.readFileSync(filePath, "utf8");
+  } catch (err) {
+    console.error("Error reading blog post:", err);
+    return <div>Post not found.</div>;
+  }
   const {content, data} = matter(source);
   return (
     <article className="mx-auto max-w-3xl py-12">
