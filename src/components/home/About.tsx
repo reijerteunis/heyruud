@@ -13,8 +13,9 @@ export default function About(): React.ReactNode {
   return (
     <div
       className={`
-        flex flex-row items-center justify-start gap-20 rounded-3xl bg-black-800
-        p-20
+        flex flex-col items-start justify-start gap-10 rounded-3xl bg-black-800
+        p-10
+        md:flex-row md:items-center md:gap-20 md:p-20
       `}
     >
       <Image
@@ -22,14 +23,19 @@ export default function About(): React.ReactNode {
         width={209}
         height={313}
         alt="Ruud Photo Sketch"
-        className="w-[100rem]"
+        className="md:w-[100rem]"
       />
       <div className="inline-flex flex-col items-start justify-start gap-14">
         <div className="flex flex-col items-start justify-start gap-2">
           <h2 className="text-lg font-medium text-yellow-500 uppercase">
             Leading with Intent
           </h2>
-          <p className="text-lg leading-[1.666] font-normal text-black-100">
+          <p
+            className={`
+              text-base leading-[1.666] font-normal text-black-100
+              md:text-lg
+            `}
+          >
             With over two decades in tech, my work has always been rooted in
             building the right things the right way. I've led engineering and
             product teams through scale, transformation, and uncertainty —
@@ -40,7 +46,12 @@ export default function About(): React.ReactNode {
             — to collaborate, share, and build what's next.
           </p>
         </div>
-        <div className="flex flex-row items-start justify-start gap-14">
+        <div
+          className={`
+            flex flex-row items-start justify-start gap-8
+            md:gap-14
+          `}
+        >
           <Metrics value={20} valueSuffix="+" label="Years of Experience" />
           <Metrics value={50} valueSuffix="+" label="Engineering Team Led" />
           <Metrics value={8} valueSuffix="+" label="Industries Served" />

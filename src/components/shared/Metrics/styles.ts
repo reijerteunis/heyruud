@@ -9,5 +9,8 @@ export const metricsValue = cva("text-4xl font-medium text-white");
 export const metricsSuffix = cva("text-yellow-500");
 
 export const metricsLabel = cva(
-  "text-base leading-loose font-normal text-black-100",
+  `
+    text-sm leading-loose font-normal text-black-100
+    md:text-base
+  `,
 );
