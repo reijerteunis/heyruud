@@ -10,7 +10,7 @@ import {mdxComponents} from "@/components/blog/MDX/mdxComponents";
 import type {Metadata} from "next";
 
 interface BlogPageProps {
-  params: {slug: string};
+  params: Promise<{slug: string}>;
 }
 
 /**
@@ -21,15 +21,16 @@ interface BlogPageProps {
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
+  const {slug} = await params;
   const filePath = path.join(
     process.cwd(),
     "src/app/blog/[slug]",
-    `${params.slug}.mdx`,
+    `${slug}.mdx`,
   );
   const source = fs.readFileSync(filePath, "utf8");
   const {data} = matter(source);
   return {
-    title: data.title || params.slug,
+    title: data.title || slug,
     description: data.description || "",
   };
 }
@@ -40,10 +41,11 @@ export async function generateMetadata({
  * @returns {Promise<import("react").JSX.Element>} The rendered blog post page or a not found message.
  */
 export default async function BlogPage({params}: BlogPageProps) {
+  const {slug} = await params;
   const filePath = path.join(
     process.cwd(),
     "src/app/blog/[slug]",
-    `${params.slug}.mdx`,
+    `${slug}.mdx`,
   );
   if (!fs.existsSync(filePath)) {
     return <div>Post not found.</div>;
@@ -55,7 +57,7 @@ export default async function BlogPage({params}: BlogPageProps) {
       {data.image && (
         <Image
           src={data.image}
-          alt={data.title || params.slug}
+          alt={data.title || slug}
           width={1000}
           height={1000}
           className="mb-8 rounded"
