@@ -12,6 +12,7 @@ export const CallToAction: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
       my-8 inline-flex flex-col gap-8 rounded-xl border-l-4 border-yellow-500
       bg-black-800 p-6 text-lg font-medium shadow-md
     `}
+    itemProp="text"
     {...props}
   >
     {children}

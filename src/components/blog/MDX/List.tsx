@@ -15,13 +15,21 @@ export const List: React.FC<ListProps> = ({
 }) => {
   if (type === "ol") {
     return (
-      <ol className={orderedListVariants({className})} {...props}>
+      <ol
+        className={orderedListVariants({className})}
+        itemProp="text"
+        {...props}
+      >
         {children}
       </ol>
     );
   }
   return (
-    <ul className={unorderedListVariants({className})} {...props}>
+    <ul
+      className={unorderedListVariants({className})}
+      itemProp="text"
+      {...props}
+    >
       {children}
     </ul>
   );
@@ -32,7 +40,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   className,
   ...props
 }) => (
-  <li className={listItemVariants({className})} {...props}>
+  <li className={listItemVariants({className})} itemProp="text" {...props}>
     {children}
   </li>
 );

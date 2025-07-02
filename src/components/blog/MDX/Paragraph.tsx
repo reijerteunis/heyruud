@@ -8,7 +8,7 @@ export const Paragraph: React.FC<ParagraphProps> = ({
   className,
   ...props
 }) => (
-  <p className={paragraphVariants({className})} {...props}>
+  <p className={paragraphVariants({className})} itemProp="text" {...props}>
     {children}
   </p>
 );

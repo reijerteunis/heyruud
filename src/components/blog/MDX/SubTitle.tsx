@@ -7,7 +7,11 @@ export const SubTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  <h2 className={subtitleVariants({className})} {...props}>
+  <h2
+    className={subtitleVariants({className})}
+    itemProp="alternativeHeadline"
+    {...props}
+  >
     {children}
   </h2>
 );
