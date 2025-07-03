@@ -1,23 +1,14 @@
-import {Bebas_Neue, Mulish} from "next/font/google";
+import Script from "next/script";
 
+import Analytics from "@/components/shared/Analytics";
 import Footer from "@/components/shared/shell/Footer";
 import Header from "@/components/shared/shell/Header";
+import {mulish, bebasNeue} from "@/lib/fonts";
+import websiteSchema from "@/lib/websiteSchema";
 
 import type React from "react";
 
 import "./globals.css";
-
-const mulish = Mulish({
-  variable: "--font-mulish",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas-neue",
-  subsets: ["latin"],
-  weight: "400",
-});
 
 /**
  * Root layout component for the app.
@@ -30,29 +21,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Schema.org structured data for the website
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Hey Ruud",
-    "description":
-      "Personal website of Ruud van Engelenhoven - Engineering leadership and technology insights",
-    "url": "https://heyruud.com",
-    "publisher": {
-      "@type": "Person",
-      "name": "Ruud van Engelenhoven",
-      "url": "https://heyruud.com",
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://heyruud.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
-
   return (
     <html lang="en">
       <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-3YV8W4E093"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-3YV8W4E093');
+            `,
+          }}
+        />
+
         {/* Schema.org structured data */}
         <script
           type="application/ld+json"
@@ -124,6 +113,8 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          {/* Google Analytics */}
+          <Analytics />
         </div>
       </body>
     </html>
